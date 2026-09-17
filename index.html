@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sameeha & Salmin | Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blush-1:#f9ece5;
+    --blush-2:#f2ddd0;
+    --blush-3:#e8c9b8;
+    --ink:#4a3428;
+    --ink-soft:#8a6f5c;
+    --gold:#c9a24b;
+    --gold-deep:#a37c2f;
+    --gold-light:#e3c885;
+    --cream:#fffbf6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Cormorant Garamond', serif;
+    color:var(--ink);
+    overflow-x:hidden;
+    position:relative;
+  }
+  h1,h2,h3{font-family:'Playfair Display', serif;}
+  .arabic{ font-family:'Amiri', serif; direction:rtl; }
+
+  /* Scroll-reactive gradient background */
+  #bgGradient{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:linear-gradient(200deg,
+      var(--blush-1) 0%, var(--blush-2) 25%, var(--blush-3) 45%,
+      var(--blush-2) 65%, var(--blush-1) 85%, var(--blush-3) 100%);
+    background-size:100% 500%;
+    background-position:center 0%;
+  }
+
+  /* CSS-only chandelier bokeh effect (no external photo) */
+  .bokeh-bg{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+    pointer-events:none;
+  }
+  .bokeh-bg::before, .bokeh-bg::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 50% 8%, rgba(255,250,240,0.9) 0%, rgba(255,250,240,0) 10%),
+      radial-gradient(circle at 30% 14%, var(--gold-light) 0%, rgba(227,200,133,0) 6%),
+      radial-gradient(circle at 70% 14%, var(--gold-light) 0%, rgba(227,200,133,0) 6%),
+      radial-gradient(circle at 20% 22%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 4%),
+      radial-gradient(circle at 80% 22%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 4%),
+      radial-gradient(circle at 42% 18%, var(--gold) 0%, rgba(201,162,75,0) 5%),
+      radial-gradient(circle at 58% 18%, var(--gold) 0%, rgba(201,162,75,0) 5%);
+    filter:blur(6px);
+    opacity:0.55;
+  }
+  .bokeh-bg::after{
+    background:
+      radial-gradient(circle at 50% 90%, rgba(227,200,133,0.35) 0%, rgba(227,200,133,0) 30%),
+      radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 35%);
+    filter:blur(20px);
+    opacity:0.8;
+  }
+
+  /* Embossed floral corner ornaments */
+  .corner-floral{
+    position:absolute;
+    width:130px;
+    height:130px;
+    z-index:1;
+    opacity:0.45;
+    pointer-events:none;
+    animation:floralGlow 3.4s ease-in-out infinite;
+  }
+  .corner-floral svg{ width:100%; height:100%; }
+  .corner-floral.top-left{ top:18px; left:18px; }
+  .corner-floral.top-right{ top:18px; right:18px; transform:scaleX(-1); animation-delay:0.5s; }
+  .corner-floral.cluster-2{ width:90px; height:90px; opacity:0.32; animation-delay:1s; }
+  .corner-floral.top-left.cluster-2{ top:60px; left:55px; }
+  .corner-floral.top-right.cluster-2{ top:60px; right:55px; transform:scaleX(-1); animation-delay:1.5s; }
+  .corner-floral.cluster-3{ width:65px; height:65px; opacity:0.25; animation-delay:2s; }
+  .corner-floral.top-left.cluster-3{ top:10px; left:95px; }
+  .corner-floral.top-right.cluster-3{ top:10px; right:95px; transform:scaleX(-1); animation-delay:2.5s; }
+
+  @keyframes floralGlow{
+    0%,100%{ filter:drop-shadow(0 0 0px rgba(163,124,47,0)); opacity:0.3; }
+    50%{ filter:drop-shadow(0 0 7px rgba(163,124,47,0.65)); opacity:0.6; }
+  }
+
+  /* ============ OPENING SCREEN ============ */
+  #openingScreen{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--blush-1);
+    overflow:hidden;
+  }
+  .door{
+    position:absolute;
+    top:0;
+    width:50%;
+    height:100%;
+    background:linear-gradient(135deg, var(--blush-1) 0%, var(--blush-2) 100%);
+    display:flex;
+    align-items:center;
+    transition:transform 2.4s cubic-bezier(0.76,0,0.24,1);
+    overflow:hidden;
+  }
+  .door::before{
+    content:'';
+    position:absolute;
+    inset:16px;
+    border:1px solid rgba(163,124,47,0.45);
+  }
+  .door-pattern{
+    position:absolute;
+    inset:0;
+    opacity:0.16;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 78px, rgba(163,124,47,0.5) 78px, rgba(163,124,47,0.5) 79px);
+  }
+  .door-left{ left:0; justify-content:flex-end; border-right:1px solid rgba(163,124,47,0.5); }
+  .door-right{ right:0; justify-content:flex-start; border-left:1px solid rgba(163,124,47,0.5); }
+
+  .seal-wrap{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:10;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    cursor:pointer;
+  }
+  .seal-names{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:1.4rem;
+    color:var(--ink);
+    margin-bottom:26px;
+    letter-spacing:0.5px;
+  }
+  .seal{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 28%, var(--gold-light), var(--gold-deep) 75%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 0 2px rgba(255,255,255,0.35) inset;
+    animation:sealPulse 2.6s ease-in-out infinite;
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .seal-monogram{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:1.6rem;
+    color:var(--cream);
+  }
+  @keyframes sealPulse{
+    0%,100%{ box-shadow:0 0 10px 2px rgba(163,124,47,0.3), 0 0 0 2px rgba(255,255,255,0.35) inset; }
+    50%{ box-shadow:0 0 28px 8px rgba(163,124,47,0.55), 0 0 0 2px rgba(255,255,255,0.35) inset; }
+  }
+  .seal-hint{
+    margin-top:22px;
+    font-size:0.85rem;
+    font-weight:600;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    opacity:0.75;
+  }
+
+  /* opened state */
+  #openingScreen.open .door-left{ transform:translateX(-100%); }
+  #openingScreen.open .door-right{ transform:translateX(100%); }
+  #openingScreen.open .seal-wrap{ opacity:0; transform:translate(-50%,-50%) scale(0.5); pointer-events:none; }
+  #openingScreen.hidden{ display:none; }
+
+  /* ============ MAIN CONTENT ============ */
+  #mainContent{ display:none; }
+  #mainContent.show{ display:block; animation:fadeInMain 1.2s ease; }
+  @keyframes fadeInMain{ from{opacity:0;} to{opacity:1;} }
+
+  .container{ max-width:640px; margin:0 auto; padding:0 24px; }
+
+  /* ============ VERSE / BISMILLAH SCREEN ============ */
+  .verse-screen{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:70px 24px;
+    overflow:hidden;
+  }
+  .verse-inner{
+    position:relative;
+    z-index:2;
+    max-width:520px;
+    text-align:center;
+  }
+  .bismillah{
+    font-size:clamp(1.6rem, 6vw, 2.2rem);
+    color:var(--gold-deep);
+    margin-bottom:28px;
+    line-height:2;
+  }
+  .verse-arabic{
+    font-size:clamp(1.3rem, 5vw, 1.7rem);
+    color:var(--ink);
+    line-height:2.1;
+    margin-bottom:32px;
+  }
+  .verse-translation{
+    font-size:1.1rem;
+    font-style:italic;
+    color:var(--ink-soft);
+    line-height:1.8;
+    margin-bottom:26px;
+  }
+  .verse-ref{
+    font-size:0.85rem;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    margin-bottom:4px;
+  }
+  .verse-sub{
+    font-size:0.8rem;
+    font-weight:600;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    opacity:0.8;
+  }
+  .verse-divider{
+    width:50px;
+    height:1px;
+    background:var(--gold);
+    margin:30px auto;
+    opacity:0.6;
+  }
+  .verse-names{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(2rem, 8vw, 2.8rem);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  .verse-amp{
+    display:block;
+    font-size:1.4rem;
+    color:var(--gold-deep);
+  }
+
+  /* ============ HERO / INFO ============ */
+  .hero{
+    text-align:center;
+    padding:70px 24px 50px;
+  }
+  .hero .venue-line{
+    font-size:1.1rem;
+    font-weight:600;
+    color:var(--ink-soft);
+    letter-spacing:0.5px;
+  }
+  .scroll-cue{
+    margin-top:40px;
+    font-size:0.85rem;
+    font-weight:600;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    opacity:0.7;
+    animation:bob 2s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+
+  /* ============ SECTIONS ============ */
+  section{ padding:50px 0; }
+  .section-title{
+    text-align:center;
+    font-size:clamp(1.8rem, 5vw, 2.4rem);
+    font-weight:700;
+    color:var(--gold-deep);
+    margin-bottom:44px;
+  }
+
+  /* Countdown */
+  .countdown-label{
+    text-align:center;
+    font-size:0.85rem;
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:24px;
+  }
+  .countdown{
+    display:flex;
+    justify-content:center;
+    align-items:stretch;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .count-box{
+    background:var(--cream);
+    border:1px solid var(--blush-3);
+    border-radius:16px;
+    padding:24px 20px;
+    min-width:90px;
+    text-align:center;
+    box-shadow:0 8px 24px rgba(163,124,47,0.1);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .count-box .num{
+    font-family:'Playfair Display', serif;
+    font-size:2.4rem;
+    font-weight:700;
+    color:var(--gold-deep);
+    line-height:1;
+  }
+  .count-box .lbl{
+    font-size:0.8rem;
+    font-weight:600;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+
+  /* Numbered cards (When / Where) */
+  .num-card{
+    background:var(--cream);
+    border:1px solid var(--blush-3);
+    border-radius:20px;
+    padding:56px 40px;
+    text-align:center;
+    box-shadow:0 10px 35px rgba(163,124,47,0.1);
+    margin-top:24px;
+  }
+  .num-card .tag{
+    font-size:0.8rem;
+    font-weight:700;
+    color:var(--gold);
+    letter-spacing:2px;
+    text-align:left;
+    margin-bottom:10px;
+  }
+  .num-card .kicker{
+    font-size:1.15rem;
+    font-weight:700;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    margin-bottom:16px;
+  }
+  .num-card h3{
+    font-size:2.1rem;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:12px;
+  }
+  .num-card .detail{
+    font-size:1.35rem;
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+  .num-card .map-frame-wrap{
+    width:100%;
+    border-radius:14px;
+    overflow:hidden;
+    background:var(--blush-2);
+    min-height:220px;
+    margin-top:22px;
+  }
+  .num-card iframe{
+    width:100%;
+    height:240px;
+    border:0;
+    display:block;
+  }
+  .map-fallback{
+    font-size:0.9rem;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+  .directions-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin:22px auto 0;
+    padding:13px 32px;
+    background:transparent;
+    border:1.5px solid var(--gold);
+    color:var(--gold-deep);
+    text-decoration:none;
+    border-radius:30px;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+  }
+
+  /* Photo upload */
+  .card{
+    background:var(--cream);
+    border:1px solid var(--blush-3);
+    border-radius:18px;
+    padding:44px 34px;
+    box-shadow:0 10px 35px rgba(163,124,47,0.1);
+  }
+  .photo-card{ text-align:center; }
+  .photo-card p{ margin-bottom:26px; color:var(--ink-soft); font-size:1.2rem; font-weight:500; }
+  .drive-btn{
+    display:inline-block;
+    padding:16px 38px;
+    background:linear-gradient(135deg, var(--gold), var(--gold-deep));
+    color:var(--cream);
+    text-decoration:none;
+    border-radius:30px;
+    font-size:1.15rem;
+    font-weight:700;
+    letter-spacing:1px;
+    box-shadow:0 6px 18px rgba(163,124,47,0.3);
+  }
+
+  /* Closing */
+  .closing{
+    min-height:70vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 24px;
+  }
+  .closing-inner{
+    animation:closeFade 2s ease both;
+    max-width:520px;
+  }
+  .closing h2{
+    font-size:clamp(1.8rem, 6vw, 2.6rem);
+    font-weight:700;
+    color:var(--gold-deep);
+    margin-bottom:22px;
+  }
+  .closing-rotator{
+    min-height:2.6em;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .closing-rotator p{
+    font-size:1.25rem;
+    font-weight:500;
+    color:var(--ink-soft);
+    font-style:italic;
+    transition:opacity 0.6s ease;
+  }
+  .closing-sign{
+    margin-top:26px;
+    font-size:1.15rem;
+    font-weight:600;
+    color:var(--ink);
+  }
+  @keyframes closeFade{ from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+
+  @media (max-width:480px){
+    .card, .num-card{ padding:38px 26px; }
+    .count-box{ min-width:70px; padding:18px 12px; }
+    .count-box .num{ font-size:1.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="bgGradient"></div>
+
+<!-- ============ OPENING SCREEN ============ -->
+<div id="openingScreen">
+  <div class="door door-left"><div class="door-pattern"></div></div>
+  <div class="door door-right"><div class="door-pattern"></div></div>
+  <div class="seal-wrap" id="sealTap">
+    <div class="seal-names">Sameeha &amp; Salmin</div>
+    <div class="seal">
+      <span class="seal-monogram">S &amp; S</span>
+    </div>
+    <div class="seal-hint">Tap the seal to open</div>
+  </div>
+</div>
+
+<!-- ============ MAIN CONTENT ============ -->
+<div id="mainContent">
+
+  <!-- BISMILLAH / VERSE SCREEN -->
+  <section class="verse-screen">
+    <div class="bokeh-bg"></div>
+    <div class="corner-floral top-left">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#a37c2f" stroke-width="1.6" stroke-linecap="round">
+        <path d="M10,10 C40,12 65,18 78,42 C88,60 82,78 95,92"/>
+        <path d="M22,10 C45,20 55,35 52,55"/>
+        <path d="M10,24 C25,35 30,50 25,65"/>
+        <path d="M52,55 C62,50 72,54 76,65" stroke-width="1.2"/>
+        <path d="M25,65 C35,62 44,66 48,76" stroke-width="1.2"/>
+        <ellipse cx="52" cy="55" rx="5" ry="8" transform="rotate(35 52 55)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <ellipse cx="25" cy="65" rx="4" ry="7" transform="rotate(-10 25 65)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <ellipse cx="95" cy="92" rx="5" ry="8" transform="rotate(50 95 92)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <circle cx="76" cy="65" r="3" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <circle cx="48" cy="76" r="3" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <path d="M78,42 C90,38 100,44 104,54" stroke-width="1.2"/>
+        <ellipse cx="104" cy="54" rx="4" ry="6" transform="rotate(30 104 54)" fill="#c9a24b" stroke="none" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="corner-floral top-left cluster-2">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#a37c2f" stroke-width="1.6" stroke-linecap="round">
+        <path d="M10,10 C40,12 65,18 78,42 C88,60 82,78 95,92"/>
+        <path d="M22,10 C45,20 55,35 52,55"/>
+        <ellipse cx="52" cy="55" rx="5" ry="8" transform="rotate(35 52 55)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <ellipse cx="95" cy="92" rx="5" ry="8" transform="rotate(50 95 92)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <path d="M78,42 C90,38 100,44 104,54" stroke-width="1.2"/>
+        <ellipse cx="104" cy="54" rx="4" ry="6" transform="rotate(30 104 54)" fill="#c9a24b" stroke="none" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="corner-floral top-left cluster-3">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#a37c2f" stroke-width="1.6" stroke-linecap="round">
+        <path d="M10,20 C35,25 50,40 48,60"/>
+        <ellipse cx="48" cy="60" rx="5" ry="8" transform="rotate(20 48 60)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <circle cx="20" cy="30" r="3" fill="#c9a24b" stroke="none" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="corner-floral top-right">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#a37c2f" stroke-width="1.6" stroke-linecap="round">
+        <path d="M10,10 C40,12 65,18 78,42 C88,60 82,78 95,92"/>
+        <path d="M22,10 C45,20 55,35 52,55"/>
+        <path d="M10,24 C25,35 30,50 25,65"/>
+        <path d="M52,55 C62,50 72,54 76,65" stroke-width="1.2"/>
+        <path d="M25,65 C35,62 44,66 48,76" stroke-width="1.2"/>
+        <ellipse cx="52" cy="55" rx="5" ry="8" transform="rotate(35 52 55)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <ellipse cx="25" cy="65" rx="4" ry="7" transform="rotate(-10 25 65)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <ellipse cx="95" cy="92" rx="5" ry="8" transform="rotate(50 95 92)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <circle cx="76" cy="65" r="3" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <circle cx="48" cy="76" r="3" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <path d="M78,42 C90,38 100,44 104,54" stroke-width="1.2"/>
+        <ellipse cx="104" cy="54" rx="4" ry="6" transform="rotate(30 104 54)" fill="#c9a24b" stroke="none" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="corner-floral top-right cluster-2">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#a37c2f" stroke-width="1.6" stroke-linecap="round">
+        <path d="M10,10 C40,12 65,18 78,42 C88,60 82,78 95,92"/>
+        <path d="M22,10 C45,20 55,35 52,55"/>
+        <ellipse cx="52" cy="55" rx="5" ry="8" transform="rotate(35 52 55)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <ellipse cx="95" cy="92" rx="5" ry="8" transform="rotate(50 95 92)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <path d="M78,42 C90,38 100,44 104,54" stroke-width="1.2"/>
+        <ellipse cx="104" cy="54" rx="4" ry="6" transform="rotate(30 104 54)" fill="#c9a24b" stroke="none" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="corner-floral top-right cluster-3">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#a37c2f" stroke-width="1.6" stroke-linecap="round">
+        <path d="M10,20 C35,25 50,40 48,60"/>
+        <ellipse cx="48" cy="60" rx="5" ry="8" transform="rotate(20 48 60)" fill="#c9a24b" stroke="none" opacity="0.7"/>
+        <circle cx="20" cy="30" r="3" fill="#c9a24b" stroke="none" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="verse-inner">
+      <div class="bismillah arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+      <div class="verse-arabic arabic">
+        وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ
+      </div>
+      <div class="verse-translation">
+        "And of His signs is that He created for you from yourselves mates that you may find tranquillity in them; and He placed between you affection and mercy. Indeed in that are signs for a people who give thought."
+      </div>
+      <div class="verse-ref">Surah Ar-Rum &middot; 30:21</div>
+      <div class="verse-sub">Bismillah &mdash; With the Blessings of Allah</div>
+      <div class="verse-divider"></div>
+      <div class="verse-names">
+        Sameeha
+        <span class="verse-amp">&amp;</span>
+        Salmin
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO / INFO -->
+  <section class="hero">
+    <div class="venue-line">Crystal Convention Centre, Nagaroor</div>
+    <div class="scroll-cue">Scroll Down ↓</div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="container">
+    <div class="countdown-label">Counting Down to the Day</div>
+    <div class="countdown">
+      <div class="count-box"><div class="num" id="cd-days">00</div><div class="lbl">Days</div></div>
+      <div class="count-box"><div class="num" id="cd-hours">00</div><div class="lbl">Hours</div></div>
+      <div class="count-box"><div class="num" id="cd-mins">00</div><div class="lbl">Mins</div></div>
+      <div class="count-box"><div class="num" id="cd-secs">00</div><div class="lbl">Secs</div></div>
+    </div>
+
+    <!-- WHEN -->
+    <div class="num-card">
+      <div class="kicker">When</div>
+      <h3>Sunday, 25 October 2026</h3>
+      <div class="detail">1448 Jamadul Awwal 13</div>
+      <div class="detail" style="margin-top:6px;">12:00 &ndash; 12:30 PM</div>
+    </div>
+
+    <!-- WHERE -->
+    <div class="num-card">
+      <div class="kicker">Where</div>
+      <h3>Crystal Convention Centre</h3>
+      <div class="detail">Nagaroor</div>
+      <div class="map-frame-wrap">
+        <iframe
+          src="https://maps.google.com/maps?q=Crystal%20Convention%20Centre%2C%20Nagaroor&z=16&output=embed"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </div>
+      <div class="map-fallback">If the map doesn't load, tap below for directions</div>
+      <a class="directions-btn" href="https://www.google.com/maps/place/Crystal+Convention+Centre/@8.7346383,76.8498149,17z" target="_blank" rel="noopener">Open in Maps</a>
+    </div>
+  </section>
+
+  <!-- PHOTO UPLOAD -->
+  <section class="container">
+    <h2 class="section-title">Share Your Photos</h2>
+    <div class="card photo-card">
+      <p>Captured a moment from the celebration? Add it to our shared album!</p>
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1IxoGOvTLsb33eQZVzG3PDomYkRbcm7Ub?usp=sharing" target="_blank" rel="noopener">Upload Photos</a>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing">
+    <div class="closing-inner">
+      <h2>We Can't Wait to Celebrate With You</h2>
+      <div class="closing-rotator"><p id="closingMsg">Thank you for being part of our story.</p></div>
+      <div class="closing-sign">With love,<br>Sameeha &amp; Salmin</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Background music -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="music/background.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ============ Opening animation + audio fade-in ============ -->
+<script>
+  const openingScreen = document.getElementById('openingScreen');
+  const sealTap = document.getElementById('sealTap');
+  const mainContent = document.getElementById('mainContent');
+  const bgMusic = document.getElementById('bgMusic');
+
+  function fadeInAudio(audio, targetVolume, duration){
+    audio.volume = 0;
+    audio.play().catch(()=>{ /* autoplay may still be blocked on some browsers */ });
+    const steps = 30;
+    const stepTime = duration / steps;
+    let current = 0;
+    const interval = setInterval(() => {
+      current++;
+      audio.volume = Math.min(targetVolume, (current / steps) * targetVolume);
+      if (current >= steps) clearInterval(interval);
+    }, stepTime);
+  }
+
+  sealTap.addEventListener('click', () => {
+    openingScreen.classList.add('open');
+    fadeInAudio(bgMusic, 0.55, 2500);
+
+    setTimeout(() => {
+      openingScreen.classList.add('hidden');
+      mainContent.classList.add('show');
+    }, 2600);
+  });
+</script>
+
+<!-- ============ Countdown Timer ============ -->
+<script>
+  const weddingDate = new Date("2026-10-25T12:00:00+05:30").getTime();
+
+  function updateCountdown(){
+    const now = new Date().getTime();
+    const diff = weddingDate - now;
+
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '00';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-mins').textContent = '00';
+      document.getElementById('cd-secs').textContent = '00';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+    const secs = Math.floor((diff % (1000*60)) / 1000);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+<!-- ============ Scroll-reactive gradient ============ -->
+<script>
+  const bgGradient = document.getElementById('bgGradient');
+  function updateGradient(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bgGradient.style.backgroundPosition = `center ${percent}%`;
+  }
+  window.addEventListener('scroll', updateGradient);
+  updateGradient();
+</script>
+
+<!-- ============ Rotating closing wishes ============ -->
+<script>
+  const closingMessages = [
+    "Thank you for being part of our story.",
+    "Your presence will make our day complete.",
+    "Every blessing you bring means the world to us.",
+    "Here's to new beginnings, shared with the people we love.",
+    "We're so grateful to celebrate this moment with you."
+  ];
+  const closingMsgEl = document.getElementById('closingMsg');
+  let closingIndex = 0;
+  setInterval(() => {
+    closingIndex = (closingIndex + 1) % closingMessages.length;
+    closingMsgEl.style.opacity = 0;
+    setTimeout(() => {
+      closingMsgEl.textContent = closingMessages[closingIndex];
+      closingMsgEl.style.opacity = 1;
+    }, 600);
+  }, 4000);
+</script>
+
+</body>
+</html>
